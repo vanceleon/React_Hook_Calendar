@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import dateFns from 'date-fns';
+import dateFns from 'dateFns';
 import '../css/Calendar.css';
 
 export default function Calendar() {
@@ -26,6 +26,21 @@ export default function Calendar() {
       </div>
     );
   };
+
+  const daysOfWeek = () => {
+    const dateFormat = 'ddd';
+    const days = [];
+    let startDate = dateFns.startOfWeek(currentDate);
+
+  }
+
+  const nextMonth = () => {
+    setCurrentDate(dateFns.addMonths(currentDate, 1));
+  }
+
+  const prevMonth = () => {
+    setCurrentDate(dateFns.subMonths(currentDate,1));
+  }
 
   return (
     <div className='calendar'>
