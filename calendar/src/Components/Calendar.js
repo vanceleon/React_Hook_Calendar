@@ -40,6 +40,7 @@ export default function Calendar() {
 
   const prevMonth = () => {
     setCurrentDate(dateFns.subMonths(currentDate,1));
+    console.log("ran prev Month")
   }
 
   return (
