@@ -40,11 +40,12 @@ export default function Calendar() {
 
   const prevMonth = () => {
     setCurrentDate(dateFns.subMonths(currentDate,1));
-    console.log("ran prev Month")
+    console.log("ran prev Months")
   }
 
   return (
     <div className='calendar'>
+      <div>{header()}</div>
       <div>{header()}</div>
       <div>{daysOfWeek()}</div>
       <div>{cells()}</div>
