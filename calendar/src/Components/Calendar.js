@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import dateFns from 'dateFns';
+import { addMonths, startOfWeek, addDays, subMonths } from 'date-fns';
+import { format } from 'date-fns/esm';
 import '../css/Calendar.css';
 
 export default function Calendar() {
@@ -7,7 +8,7 @@ export default function Calendar() {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const header = () => {
-    const dateFormat = 'MMMM YYYY';
+    const dateFormat = 'mmmm yyyy';
     return (
       <div className='header row flex-middle'>
         <div className='column col-start'>
@@ -16,7 +17,7 @@ export default function Calendar() {
           </div>
         </div>
         <div className='column col-center'>
-          <span>{dateFns.format(currentDate, dateFormat)}</span>
+          <span>{format(currentDate, dateFormat)}</span>
         </div>
         <div className='column col-end'>
           <div className='icon' onClick={nextMonth}>
@@ -30,25 +31,33 @@ export default function Calendar() {
   const daysOfWeek = () => {
     const dateFormat = 'ddd';
     const days = [];
-    let startDate = dateFns.startOfWeek(currentDate);
+    let startDate = startOfWeek(currentDate);
 
-  }
+    for (let i = 0; i < 7; i++) {
+      days.push(
+        <div className='column col-center' key={i}>
+          {format(addDays(startDate, i), dateFormat)}
+        </div>
+      );
+    }
+    return <div className='days row'>{days}</div>;
+  };
 
   const nextMonth = () => {
-    setCurrentDate(dateFns.addMonths(currentDate, 1));
-  }
+    setCurrentDate(addMonths(currentDate, 1));
+  };
 
   const prevMonth = () => {
-    setCurrentDate(dateFns.subMonths(currentDate,1));
-    console.log("ran prev Months")
-  }
+    setCurrentDate(subMonths(currentDate, 1));
+    console.log('ran prev Months');
+  };
 
   return (
     <div className='calendar'>
       <div>{header()}</div>
       <div>{header()}</div>
       <div>{daysOfWeek()}</div>
-      <div>{cells()}</div>
+      {/* <div>{cells()}</div> */}
     </div>
   );
 }
