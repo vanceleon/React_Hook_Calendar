@@ -12,13 +12,10 @@ import {
   isSameMonth,
   parse,
 } from 'date-fns';
-// import { format } from 'date-fns/esm';
-import '../css/Calendar.css';
-
+// import "./Calendar.css";
 export default function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
-
   const header = () => {
     const dateFormat = 'mmm yyy';
     return (
@@ -39,8 +36,7 @@ export default function Calendar() {
       </div>
     );
   };
-
-  const daysOfWeek = () => {
+  const days = () => {
     const dateFormat = 'd';
     const days = [];
     let startDate = startOfWeek(currentDate);
@@ -51,9 +47,8 @@ export default function Calendar() {
         </div>
       );
     }
-     return <div className='days row'>{days}</div>;
+    return <div className='days row'>{days}</div>;
   };
-
   const cells = () => {
     const monthStart = startOfMonth(currentDate);
     const monthEnd = endOfMonth(monthStart);
@@ -64,10 +59,10 @@ export default function Calendar() {
     let days = [];
     let day = startDate;
     let formattedDate = '';
-
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
         formattedDate = format(day, dateFormat);
+        // this assignment will always make the clicked date the start date which is a flaw in the code example
         const cloneDay = day;
         days.push(
           <div
@@ -97,28 +92,21 @@ export default function Calendar() {
     }
     return <div className='body'>{rows}</div>;
   };
-
-  const onDateClick = day => {
-    setSelectedDate(day);
-  };
-
   const nextMonth = () => {
     setCurrentDate(addMonths(currentDate, 1));
   };
-
   const prevMonth = () => {
     setCurrentDate(subMonths(currentDate, 1));
-    console.log('ran prev Months');
   };
-
+  const onDateClick = day => {
+    setSelectedDate(day);
+  };
   return (
     <div className='calendar'>
       <div>{header()}</div>
-      <div>{daysOfWeek()}</div>
+      <div>{days()}</div>
       <div>{cells()}</div>
     </div>
   );
 }
-
-
-
+// export default Calendar;
