@@ -20,7 +20,7 @@ export default function Calendar() {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const header = () => {
-    const dateFormat = 'mmm yyy';
+    const dateFormat = 'MMM Y';
     return (
       <div className='header row flex-middle'>
         <div className='column col-start'>
@@ -41,7 +41,8 @@ export default function Calendar() {
   };
 
   const daysOfWeek = () => {
-    const dateFormat = 'd';
+    // format changes from org code
+    const dateFormat = 'EEE';
     const days = [];
     let startDate = startOfWeek(currentDate);
     for (let i = 0; i < 7; i++) {
